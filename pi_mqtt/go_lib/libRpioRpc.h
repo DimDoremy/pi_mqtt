@@ -68,11 +68,11 @@ typedef struct { void *data; GoInt len; GoInt cap; } GoSlice;
 extern "C" {
 #endif
 
-extern void High(GoString address, GoUint8 pin);
-extern void Low(GoString address, GoUint8 pin);
-extern GoUint8 ReadPin(GoString address, GoUint8 pin);
-extern void PullUp(GoString address, GoUint8 pin);
-extern void PullDown(GoString address, GoUint8 pin);
+extern void High(char* address, GoUint8 pin);
+extern void Low(char* address, GoUint8 pin);
+extern GoUint8 ReadPin(char* address, GoUint8 pin);
+extern void PullUp(char* address, GoUint8 pin);
+extern void PullDown(char* address, GoUint8 pin);
 
 #ifdef __cplusplus
 }

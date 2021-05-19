@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using pi_mqtt.Entity;
 
 namespace pi_mqtt.Controllers
@@ -29,7 +25,7 @@ namespace pi_mqtt.Controllers
         private static extern void PullDown(byte[] address, uint pin);
 
 
-        [HttpPost("SetHigh")]
+        [HttpPost("SetHigh")]    
         public JsonResult SetHigh([FromBody] Rpio rpio)
         {
             try

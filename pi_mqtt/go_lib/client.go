@@ -15,12 +15,11 @@ type RpioRequest struct {
 }
 
 //export High
-func High(address string, pin uint8) {
-	fmt.Println(address)
-	conn, err := jsonrpc.Dial("tcp", address)
+func High(address *C.char, pin uint8) {
+	fmt.Println(C.GoString(address))
+	conn, err := jsonrpc.Dial("tcp", C.GoString(address))
 	if err != nil {
 		log.Println(err)
-		panic(err)
 	}
 
 	req := RpioRequest{pin, true}
@@ -28,17 +27,15 @@ func High(address string, pin uint8) {
 	err = conn.Call("RpioRequest.SetMode", req, &res)
 	if err != nil {
 		log.Println(err)
-		panic(err)
 	}
 }
 
 //export Low
-func Low(address string, pin uint8) {
-	fmt.Println(address)
-	conn, err := jsonrpc.Dial("tcp", address)
+func Low(address *C.char, pin uint8) {
+	fmt.Println(C.GoString(address))
+	conn, err := jsonrpc.Dial("tcp", C.GoString(address))
 	if err != nil {
 		log.Println(err)
-		panic(err)
 	}
 
 	req := RpioRequest{pin, false}
@@ -46,17 +43,15 @@ func Low(address string, pin uint8) {
 	err = conn.Call("RpioRequest.SetMode", req, &res)
 	if err != nil {
 		log.Println(err)
-		panic(err)
 	}
 }
 
 //export ReadPin
-func ReadPin(address string, pin uint8) bool {
-	fmt.Println(address)
-	conn, err := jsonrpc.Dial("tcp", address)
+func ReadPin(address *C.char, pin uint8) bool {
+	fmt.Println(C.GoString(address))
+	conn, err := jsonrpc.Dial("tcp", C.GoString(address))
 	if err != nil {
 		log.Println(err)
-		panic(err)
 	}
 
 	req := RpioRequest{pin, false}
@@ -64,18 +59,16 @@ func ReadPin(address string, pin uint8) bool {
 	err = conn.Call("RpioRequest.ReadPin", req, &res)
 	if err != nil {
 		log.Println(err)
-		panic(err)
 	}
 	return res.Mode
 }
 
 //export PullUp
-func PullUp(address string, pin uint8) {
-	fmt.Println(address)
-	conn, err := jsonrpc.Dial("tcp", address)
+func PullUp(address *C.char, pin uint8) {
+	fmt.Println(C.GoString(address))
+	conn, err := jsonrpc.Dial("tcp", C.GoString(address))
 	if err != nil {
 		log.Println(err)
-		panic(err)
 	}
 
 	req := RpioRequest{pin, true}
@@ -83,17 +76,15 @@ func PullUp(address string, pin uint8) {
 	err = conn.Call("RpioRequest.PullInput", req, &res)
 	if err != nil {
 		log.Println(err)
-		panic(err)
 	}
 }
 
 //export PullDown
-func PullDown(address string, pin uint8) {
-	fmt.Println(address)
-	conn, err := jsonrpc.Dial("tcp", address)
+func PullDown(address *C.char, pin uint8) {
+	fmt.Println(C.GoString(address))
+	conn, err := jsonrpc.Dial("tcp", C.GoString(address))
 	if err != nil {
 		log.Println(err)
-		panic(err)
 	}
 
 	req := RpioRequest{pin, false}
@@ -101,13 +92,12 @@ func PullDown(address string, pin uint8) {
 	err = conn.Call("RpioRequest.PullInput", req, &res)
 	if err != nil {
 		log.Println(err)
-		panic(err)
 	}
 }
 
 func main() {
 	fmt.Println("hello,world")
-	High("192.168.137.47:8096", 10)
+	High(C.CString("192.168.137.47:8096"), 10)
 	<-time.After(time.Second * 4)
-	Low("192.168.137.47:8096", 10)
+	Low(C.CString("192.168.137.47:8096"), 10)
 }
